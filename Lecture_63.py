@@ -28,22 +28,7 @@ font = pygame.font.SysFont(None, 25)
 
 
 def snake(block_size, snakelist):
-    if direction == "right":
-        head = pygame.transform.rotate(img, 270)
-
-    if direction == "left":
-        head = pygame.transform.rotate(img, 90)
-
-    if direction == "up":
-        head = img
-
-    if direction == "down":
-        head = pygame.transform.rotate(img, 180)
-
-    gameDisplay.blit(head, (snakelist[-1][0], snakelist[-1][1]))
-
-    for XnY in snakelist[:-1]:
-        pygame.draw.rect(gameDisplay, green, [XnY[0], XnY[1], block_size, block_size])
+    
 
 
 def text_objects(text, color):
@@ -73,46 +58,37 @@ def gameLoop():
     snakeList = []
     snakeLength = 1
 
-    randAppleX = round(random.randrange(0, display_width - block_size))  # /10.0)*10.0
-    randAppleY = round(random.randrange(0, display_height - block_size))  # /10.0)*10.0
+    
 
     while not gameExit:
 
         while gameOver == True:
-            gameDisplay.fill(white)
-            message_to_screen("Game over, press C to play again or Q to quit", red)
-            pygame.display.update()
+            
 
             for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    gameOver = False
-                    gameExit = True
+                
 
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_q:
-                        gameExit = True
-                        gameOver = False
-                    if event.key == pygame.K_c:
-                        gameLoop()
+                    
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 gameExit = True
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
-                    direction = "left"
+                    
                     lead_x_change = -block_size
                     lead_y_change = 0
                 elif event.key == pygame.K_RIGHT:
-                    direction = "right"
+                    
                     lead_x_change = block_size
                     lead_y_change = 0
                 elif event.key == pygame.K_UP:
-                    direction = "up"
+                    
                     lead_y_change = -block_size
                     lead_x_change = 0
                 elif event.key == pygame.K_DOWN:
-                    direction = "down"
+                    
                     lead_y_change = block_size
                     lead_x_change = 0
 
@@ -127,17 +103,12 @@ def gameLoop():
         AppleThickness = 30
         pygame.draw.rect(gameDisplay, red, [randAppleX, randAppleY, AppleThickness, AppleThickness])
 
-        snakeHead = []
-        snakeHead.append(lead_x)
-        snakeHead.append(lead_y)
-        snakeList.append(snakeHead)
+        
 
         if len(snakeList) > snakeLength:
             del snakeList[0]
 
-        for eachSegment in snakeList[:-1]:
-            if eachSegment == snakeHead:
-                gameOver = True
+        
 
         snake(block_size, snakeList)
 
